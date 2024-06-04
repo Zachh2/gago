@@ -1,6 +1,7 @@
 import re
 import random
 import string
+import sys
 from flask import Flask, request, jsonify
 import requests
 import json
@@ -54,5 +55,8 @@ def get_cookie():
     cookies = getCookies(email, password)
     formatted_cookies = "; ".join([f"{key}={value}" for key, value in cookies.items()])    
     return formatted_cookies
+
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8080)
+    if len(sys.argv) > 1:
+        port = int(sys.argv[1])
+        app.run(debug=False, port=port)
